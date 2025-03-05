@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/imagem/pedra.png" type="image/x-icon">
+    <link rel="stylesheet" href="/BodyColor.css">
+    <title>Jogando</title>
+    <link rel="stylesheet" href="PlayBot.css">
+</head>
+<body>
+    <div class="conteiner">
+        <div class="Placa">
+            <div class="SetaLeft">
+                <img src="../imagem/ply.png" alt="player">
+                <div>
+                    <!--Pontuacao-->
+                    <p>Score</p>
+                    <!--Pontos atual-->
+                    <div class="PontosLeft">
+                        <p id="1+Right">+1</p>
+                        <h3 class="PontoPlayer">0</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="x"></div>
+            <div class="SetaRight">
+                <!--Score-->
+                <div>
+                    <!--Text Score-->
+                    <p>Score</p>
+                    <!--Pontos up e contador-->
+                    <div class="PontosRight">
+                        <p id="1+Left">+1</p>
+                        <h3 class="PontoBot">0</h3>
+                    </div>
+                </div>
+                <img src="../imagem/bot.png" alt="bot">
+            </div>
+        </div>
+        <div class="X1">
+            <img src="../imagem/pedra.png" alt="player" class="ImgPlayer">
+
+            <img src="../imagem/pedra.png" alt="bot" class="ImgBot">
+        </div>
+
+    </div>
+    <!--Div de quem ganhou e a opcao de voltar paizao-->
+    <div class="Vencedo" id="Vencedo"><p id="Resultado">Bot Ganhou</p></div>
+    <div class="voltar"><img src="../imagem/Voltar.png" alt=""></div>
+    <script src="../ScriptFavicon.js"></script>
+    <script src="PlayBot.js"></script>
+</body>
+</html>

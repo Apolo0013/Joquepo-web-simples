@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogando</title>
+    <link rel="shortcut icon" href="../imagem/pedra.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/BodyColor.css">
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .conteiner {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            width: 600px;
+            height: 500px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        @media (max-width: 610px) {
+            .conteiner {
+                width: 480px;
+            }
+
+            .Atual > div {
+                width: 480px !important;
+            }
+            
+            .Escolhas {
+                gap: 20px !important;
+            }
+        }
+
+        .Atual {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            margin-bottom: 40px;
+        }
+
+        .Atual > p {
+            text-align: center;
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+        
+        .Atual > div {
+            display: flex;
+
+            width: 600px;
+            height: 170px;
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+            align-items: center;
+            background: rgb(165, 165, 165);
+        }
+
+        .Escolhas {
+            display: flex;
+            gap: 40px;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .Orientação > p {
+            text-align: center;
+            font-size: 30px;
+            margin: auto;
+            margin-left: 29%;
+            margin-bottom: 20px;
+        }
+
+        .Img {
+            transition: 0.3s ease-in-out;
+            cursor: pointer;
+        }
+
+        .Img:hover {
+            transform: scale(1.1);
+            opacity: 0.9;
+        }
+        
+        .Orientação {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .Ale {
+            cursor: pointer;
+            transition: 0.5s;
+        }
+
+        .Ale:hover {
+            transform: scale(1.1);
+        }
+        @keyframes click {
+            10% {
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(1.5);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="conteiner">
+        <div class="Atual">
+            <p>Jogada atual</p>
+            <div>
+                <img src="../imagem/pedra.png" id="atualJogadaIMG">
+            </div>
+        </div>
+        <div class="jogadas">
+            <div class="Orientação">
+                <abbr title="Jogada Aleatoria."><img src="../imagem/Aleatorio.png" alt="" class="Ale"></abbr>
+                <p>
+                    Escolha
+                </p>
+            </div>
+            <div class="Escolhas">    
+                <img src="../imagem/pedra.png" id="pedra" class="Img">
+                <img src="../imagem/papel.png" id="papel" class="Img">
+                <img src="../imagem/tesoura.png" id="tesoura" class="Img">
+            </div>
+        </div>
+    </div>
+    <script src="../ScriptFavicon.js"></script>
+    <script>
+        function Randint02() {
+            return Math.floor(Math.random() * (2 - 0 + 1)) + 0
+        }
+
+
+        function ImgAle() {
+            Disc = [
+                '../imagem/pedra.png',
+                '../imagem/papel.png',
+                '../imagem/tesoura.png'
+            ]
+            let index = 0
+            setInterval(function () {
+                atual.src = Disc[index]
+                index ++
+                if (index == 3) {
+                    index = 0 
+                } 
+            },200)
+        }   
+
+        const atual = window.document.querySelector('#atualJogadaIMG') //img que exbicao da escolha do jogado
+        const pedra = window.document.querySelector('#pedra') // img da pedra
+        const papel = window.document.querySelector('#papel') // img do papel
+        const tesoura = window.document.querySelector('#tesoura') // img da tesoura
+        const Aleatorio = window.document.querySelector('.Ale')
+
+        let Escolhido = false
+        let Jogada = null
+        let AleatorioJaFoi = false
+
+        Aleatorio.addEventListener('click', function () {
+            Escolhido = true
+            this.style.animation = 'click 1s ease-in-out 1 forwards'
+            setTimeout(() => {
+                let JogadaAleatoria = Randint02()
+                ImgAle()
+                const ListaImg = [pedra, papel, tesoura]
+                ListaImg[JogadaAleatoria].style.transform = 'scale(2)'
+                ListaImg[JogadaAleatoria].style.opacity = 0
+                setTimeout(() => {
+                    window.location.href = 'PlayBot.html'
+                    window.localStorage.setItem('JogadaPlayer', JogadaAleatoria)
+                }, 1000)
+            }, 1500)
+        })
+
+        for (let elemento of window.document.querySelector('.Escolhas').querySelectorAll('*')) {
+            elemento.addEventListener('click' , function () {
+                if (!Escolhido) {
+                    Escolhido = true
+                    this.style.transform = 'scale(2)'
+                    this.style.opacity = 0
+                    ImgAle()
+                    setTimeout(function () {
+                        window.location.href = 'PlayBot.html'
+                        window.localStorage.setItem('JogadaPlayer', Jogada)
+                    } , 1500)}
+            })
+        }
+
+        pedra.addEventListener('mouseenter', function () {
+            if (!Escolhido) {
+                Jogada = 0 // 0 == pedra
+                atual.src = '/imagem/pedra.png'
+            }
+        })
+
+        papel.addEventListener('mouseenter' , function () {
+            if (!Escolhido) {
+                Jogada = 1 // 1 == papel
+                atual.src = '/imagem/papel.png'
+            }
+        })
+
+        tesoura.addEventListener('mouseenter' , function () {
+            if (!Escolhido) {
+                Jogada = 2 // 2 == tesoura
+                atual.src = '/imagem/tesoura.png'
+        }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+body { 
+    height: 100vh;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to left, red, blue);
+    background-size: 300% 300%;
+    animation: RedAndBlue 3s infinite alternate ease-in-out;
+}
+
+@keyframes RedAndBlue {
+    0% {
+        background-position: 0% 50%
+    }
+    100% {
+        background-position: 100% 50% ;
+    }
+}
+
+
+@font-face {
+    font-family: 'bebas';
+    src: url('Font/BebasNeue-Regular.ttf') format('truetype');
+}
